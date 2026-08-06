@@ -1,0 +1,185 @@
+@charset "UTF-8";
+
+/* 共通CSS */
+body{
+    margin: 0;
+    background-color: #f4f7fb;
+    font-family: "Yu Gothic","Meiryo", sans-serif;
+    color: #333;
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:20px;
+}
+
+footer{
+    text-align: center;
+    padding:20px;
+}
+
+/*　カード */
+
+.container{
+    width: min(900px, 92%);
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* ボタン */
+
+.btn{
+    display: inline-block;
+    padding: 10px 16px;
+    margin: 4px;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-home{
+    /*background-color: #c5f80f;*/
+    background-color: #2878d0;
+}
+
+.btn-upload{
+    background-color: #2878d0;
+}
+
+.btn-history{
+    background-color: #2878d0;
+}
+
+.btn-delete{
+    background-color: #d9534f;
+}
+
+.btn:hover {
+    opacity: 0.85;
+}
+
+/*　フォーム */
+
+.upload-form,
+.delete-form,
+.edit-form,
+.register-form,
+.login-form{
+    max-width: 650px;
+    margin: 20px auto;
+}
+
+.form-group{
+    margin-bottom: 20px;
+}
+
+.form-group label{
+    display: block;
+    margin-bottom: 7px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea{
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #cbd3dc;
+    border-radius: 7px;
+    font-size: 16px;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.form-group textarea{
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus{
+    outline: none;
+    border-color: #2878d0;
+    box-shadow: 0 0 0 3px rgba(40, 120, 208, 0.15);
+}
+
+/* テーブル */
+.table-wrapper{
+    overflow-x:auto;
+    margin-top:20px;
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td{
+    padding: 12px 15px;
+    border-bottom:1px solid #ddd;
+    text-align: left;
+}
+
+th{
+    background-color: #2878d0;
+    color:#fff;
+}
+
+tbody tr:nth-child(even){
+    background: #f7f9fc;
+}
+
+tbody tr:hover{
+    background: #e7f2ff;
+}
+
+.operation-cell{
+    white-space: nowrap;
+}
+
+.inline-form{
+    display:inline-block;
+    margin: 0;
+}
+
+/* ホームチャート */
+.chart-container{
+    width: min(700px, 100%);
+    margin: 30px auto;
+    text-align: center;
+}
+
+/*　ホームの今日の学習履歴　*/
+
+.card{
+    margin: 24px 0;
+    padding: 24px;
+    background-color: #f0f7ff;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.card h2{
+    margin-top: 0;
+    color: #245b8f;
+}
+
+.study-time{
+    margin: 16px 0;
+    font-size: 32px;
+    font-weight: bold;
+    color: #1f4e79;
+}
+
+.card a{
+    display: inline-block;
+    margin-top: 8px;
+}
