@@ -109,7 +109,7 @@ PHP・MySQLを用いたWebアプリケーション開発を学ぶことを目的
 
 ```
 StudyPlan
-├── css/
+├── css/style.css
 ├── includes/
 ├── SP_home.php
 ├── SP_history.php
