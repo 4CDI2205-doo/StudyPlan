@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include "SP_table_pdo.php";
+    include "includes/SP_table_pdo.php";
 
     if (isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["password"]) && !empty($_POST["password"])){
         $email = $_POST["email"];
@@ -14,7 +14,9 @@
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($result){
-            if ($password == $result["password"]){
+            if (password_verify($password, $result["password"])){
+                session_regenerate_id(true);
+
                 $_SESSION["user_id"] = $result["id"];
                 $_SESSION["user_name"] = $result["name"];
                 
@@ -33,7 +35,7 @@
     };
 ?>
 
-<?php include "header-normal.php" ?>
+<?php include "includes/header-normal.php" ?>
 <h2>ログイン</h2>
 <form action="" method="post" class="login-form">
     <div class="form-group">
@@ -49,4 +51,4 @@
 <hr>
 <a href="SP_register.php">新規登録はこちら</a>
 
-<?php include "footer.php" ?>
+<?php include "includes/footer.php" ?>

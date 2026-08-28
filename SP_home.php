@@ -3,8 +3,8 @@
 
     date_default_timezone_set("Asia/Tokyo");
 
-    include "SP_table_pdo.php";
-    include "function.php";
+    include "includes/SP_table_pdo.php";
+    include "includes/function.php";
     requireLogin();
     
     //今日の勉強時間関連
@@ -68,8 +68,8 @@
 ?>
 
 <?php
-    //ホームでの新しい5件のみ表示するためのセレクト文
-    $sql_recent = "SELECT * FROM SP_study_logs WHERE user_id = :user_id ORDER BY created_at DESC LIMIT 5";
+    //ホームでの新しい3件のみ表示するためのセレクト文
+    $sql_recent = "SELECT * FROM SP_study_logs WHERE user_id = :user_id ORDER BY created_at DESC LIMIT 3";
     
     $stmt_recent = $pdo->prepare($sql_recent);
     
@@ -101,15 +101,80 @@
         $month_total_time += (int)$month_result["month_total_time"];
     }
 
-    include "header.php";
+    include "includes/header.php";
 ?>    
-<section class="card">
-    <h2>今日の勉強時間</h2>
+<div class="card-grid">
+    <section class="card">
+        <h2>今日の勉強時間</h2>
     
-    <p class="study-time">
-        <?= h($today_hours) ?>時間
-        <?= h($today_minutes) ?>分
-    </p>
+        <p class="study-time">
+            <?= h($today_hours) ?>時間
+            <?= h($today_minutes) ?>分
+        </p>
+    
+        <?php if ($today_total === 0): ?>
+            <p>今日はまだ学習がありません。</p>
+            <a href="SP_upload.php">学習を記録する</a>
+        <?php else: ?>
+            <p>今日も学習お疲れ様です！</p>
+        <?php endif; ?>
+    </section>
+    <section class="card">
+        <h2>総学習時間</h2>
+        <p class="study-time">       
+            <?= h($total_hours) ?>時間
+            <?= h($total_minutes) ?>分
+        </p>
+    </section>
+    <section class="card">
+        <h2>総投稿数</h2>
+        <p class="study-time"><?= h($total_count) ?>件</p>
+        </section>
+</div>
+
+
+<section class="card">
+    <h2>最近の学習履歴</h2>
+    <?php if (empty($recent_results)): ?>
+        <p>学習履歴はまだありません</p>
+    <?php else: ?>
+        <div class="table-wrapper">
+            <table>
+                <tr>
+                    <th>学習ID</th>
+                    <th>科目</th>
+                    <th>勉強時間</th>
+                    <th>進捗</th>
+                    <th>学習内容</th>
+                   <th>登録日時</th>
+                   <th>操作</th>
+                </tr>
+                <?php foreach ($recent_results as $result): ?>
+                    <tr>
+                        <td><?= h($result["id"]) ?></td>
+                        <td><?= h($result["SP_subject"]) ?></td>
+                        <td><?= h($result["study_time"]) ?></td>
+                        <td><?= h($result["progress"]) ?></td>
+                        <td><?= nl2br(h($result["memo"])) ?></td>
+                        <td><?= h($result["created_at"]) ?></td>
+                        <td class="operation-cell"><a href="SP_edit.php?id=<?= h($result["id"]) ?>" class = "btn btn-history">編集</a>
+                            <form action="SP_delete.php" method="post" class="inline-form">
+                                <input type="hidden" name="delete_id" value="<?= h($result["id"]) ?>">
+                                <button type="submit" class="btn btn-delete" onclick="return confirm('この学習記録を削除しますか？');">削除</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+    <?php endif; ?>
+</section>
+
+
+
+<section class="card">
+    <h2>今までのあなたの勉強成果！！</h2>
+
     <?php if (empty($month_results)): ?>
         <p>グラフに表示できる学習記録が在りません</p>
     <?php else: ?>
@@ -185,59 +250,6 @@
             });
         </script>
     <?php endif; ?>
-    <?php if ($today_total === 0): ?>
-        <p>今日はまだ学習がありません。</p>
-        <a href="SP_upload.php">学習を記録する</a>
-    <?php else: ?>
-        <p>今日も学習お疲れ様です！</p>
-    <?php endif; ?>
-</section>
-<section class="card">
-    <h2>最近の学習履歴</h2>
-    <?php if (empty($recent_results)): ?>
-        <p>学習履歴はまだありません</p>
-    <?php else: ?>
-        <div class="table-wrapper">
-            <table>
-                <tr>
-                    <th>学習ID</th>
-                    <th>科目</th>
-                    <th>勉強時間</th>
-                    <th>進捗</th>
-                    <th>学習内容</th>
-                   <th>登録日時</th>
-                   <th>操作</th>
-                </tr>
-                <?php foreach ($recent_results as $result): ?>
-                    <tr>
-                        <td><?= h($result["id"]) ?></td>
-                        <td><?= h($result["SP_subject"]) ?></td>
-                        <td><?= h($result["study_time"]) ?></td>
-                        <td><?= h($result["progress"]) ?></td>
-                        <td><?= nl2br(h($result["memo"])) ?></td>
-                        <td><?= h($result["created_at"]) ?></td>
-                        <td class="operation-cell"><a href="SP_edit.php?id=<?= h($result["id"]) ?>" class = "btn btn-history">編集</a>
-                            <form action="SP_delete.php" method="post" class="inline-form">
-                                <input type="hidden" name="delete_id" value="<?= h($result["id"]) ?>">
-                                <button type="submit" class="btn btn-delete" onclick="return confirm('この学習記録を削除しますか？');">削除</button>
-                            </form>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </table>
-        </div>
-    <?php endif; ?>
-</section>
-<section class="card">
-    <h2>今までのあなたの勉強成果！！</h2>
-
-    <p>総学習時間：</p>
-    <p class="study-time">
-        
-        <?= h($total_hours) ?>時間
-        <?= h($total_minutes) ?>分<br />
-        総投稿数：<?= h($total_count) ?>件
-    </p>
 
     <?php if (empty($results)): ?>
         <p>グラフに表示できる学習記録が在りません</p>
@@ -291,4 +303,4 @@
         </script>
     <?php endif; ?>
 </section>
-<?php include "footer.php" ?>
+<?php include "includes/footer.php" ?>

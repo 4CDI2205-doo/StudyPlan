@@ -1,7 +1,7 @@
 <?php
     session_start();
-    include "SP_table_pdo.php";
-    include "function.php";
+    include "includes/SP_table_pdo.php";
+    include "includes/function.php";
     requireLogin();
 
     $user_id = $_SESSION["user_id"];
@@ -14,7 +14,7 @@
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<?php include "header.php" ?>
+<?php include "includes/header.php" ?>
 <h2>学習履歴</h2>
 
 <?php if (empty($results)): ?>
@@ -50,4 +50,4 @@
         </table>
     </div>
 <?php endif; ?>
-<?php include "footer.php"; ?>
+<?php include "includes/footer.php"; ?>

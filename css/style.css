@@ -20,7 +20,37 @@ footer{
     padding:20px;
 }
 
-/*　カード */
+/*　カード　*/
+.card{
+    margin: 24px 0;
+    padding: 24px;
+    background-color: #f0f7ff;
+    border-radius: 12px;
+    text-align: center;
+
+    box-sizing: border-box;
+
+}
+
+.card-grid{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+}
+
+.card-grid .card{
+    margin: 0;
+}
+
+.card h2{
+    margin-top: 0;
+    color: #245b8f;
+}
+
+.card a{
+    display: inline-block;
+    margin-top: 8px;
+}
 
 .container{
     width: min(900px, 92%);
@@ -159,27 +189,9 @@ tbody tr:hover{
 
 /*　ホームの今日の学習履歴　*/
 
-.card{
-    margin: 24px 0;
-    padding: 24px;
-    background-color: #f0f7ff;
-    border-radius: 12px;
-    text-align: center;
-}
-
-.card h2{
-    margin-top: 0;
-    color: #245b8f;
-}
-
 .study-time{
     margin: 16px 0;
     font-size: 32px;
     font-weight: bold;
     color: #1f4e79;
-}
-
-.card a{
-    display: inline-block;
-    margin-top: 8px;
 }

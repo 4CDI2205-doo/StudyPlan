@@ -1,7 +1,7 @@
 <?php
     session_start();
-    include "SP_table_pdo.php";
-    include "function.php";
+    include "includes/SP_table_pdo.php";
+    include "includes/function.php";
     requireLogin();
 
     $user_id = $_SESSION["user_id"];
@@ -33,7 +33,7 @@
     }
 ?>
 
-<?php include "header.php" ?>
+<?php include "includes/header.php" ?>
 <form action="" method="post" class="upload-form">
     <h2>学習履歴の追加</h2>
     <div class="form-group">
@@ -54,4 +54,4 @@
     </div>
     <button type="submit" name="upload_submit" class="btn btn-history">送信する</button>
 </form>
-<?php include "footer.php" ?>
+<?php include "includes/footer.php" ?>
