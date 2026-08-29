@@ -7,9 +7,11 @@
     include "includes/function.php";
     requireLogin();
     
-    //今日の勉強時間関連
     $user_id = $_SESSION["user_id"];
     $user_name = $_SESSION["user_name"];
+    $csrf_token = generate_csrf_token();
+
+    //今日の勉強時間関連
     //今日の日付
     $today = date("Y-m-d");
     $month = date("Y-m");
@@ -159,6 +161,7 @@
                         <td><?= h($result["created_at"]) ?></td>
                         <td class="operation-cell"><a href="SP_edit.php?id=<?= h($result["id"]) ?>" class = "btn btn-history">編集</a>
                             <form action="SP_delete.php" method="post" class="inline-form">
+                                <input type="hidden" name="csrf_token" value="<?= h($csrf_token) ?>">
                                 <input type="hidden" name="delete_id" value="<?= h($result["id"]) ?>">
                                 <button type="submit" class="btn btn-delete" onclick="return confirm('この学習記録を削除しますか？');">削除</button>
                             </form>
