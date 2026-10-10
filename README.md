@@ -52,22 +52,16 @@ PHP・MySQLを用いたWebアプリケーション開発を学ぶことを目的
 ## 画面
 
 ### ホーム画面
-<img width="640" height="400" alt="スクリーンショット 2026-10-10 180534" src="https://github.com/user-attachments/assets/9ac7db9b-6cb1-482d-8eac-d08c0aabd9d1" />
-<img width="640" height="398" alt="スクリーンショット 2026-10-10 180550" src="https://github.com/user-attachments/assets/fdc30bcf-d05d-40f2-99b4-4eddfff97a0a" />
 
 - 今日の学習時間を表示
 - 科目ごとの学習時間を円グラフで表示
 
 ### 学習履歴
-<img width="640" height="400" alt="スクリーンショット 2026-10-10 180759" src="https://github.com/user-attachments/assets/c55ec25a-7502-4162-a371-b55ab22c3cf9" />
-
 
 - 学習履歴を一覧表示
 - 編集・削除機能
 
 ### 学習記録
-<img width="640" height="399" alt="スクリーンショット 2026-10-10 180614" src="https://github.com/user-attachments/assets/11e403df-cc57-448d-8d66-c7e9fe9c034b" />
-
 
 - 科目
 - 学習時間
@@ -79,6 +73,7 @@ PHP・MySQLを用いたWebアプリケーション開発を学ぶことを目的
 
 ## 工夫した点
 
+- PHPのセッションを利用し、ログイン状態を管理
 - PHPとMySQLを連携し、ユーザーごとに学習履歴を管理
 - SQLで学習時間を集計し、グラフへ反映
 - Chart.jsを利用して学習状況を可視化
@@ -92,10 +87,12 @@ PHP・MySQLを用いたWebアプリケーション開発を学ぶことを目的
 
 - 日ごとの学習時間をSQLで集計する処理
 - SQLで取得したデータをJavaScriptへ渡し、円グラフとして表示する処理
+- セキュリティ面
 
 です。
 
-エラーが発生した際には原因を調査し、試行錯誤を繰り返しながら解決しました。
+エラーが発生した際にはecho()で値を表示させながらエラーの原因を調査し、インターネットやAIで検索して試行錯誤を繰り返しながら解決しました。
+セキュリティ面は知識が全くなかったため、インターネットやAIを活用しセッション管理などを実装しました
 
 ---
 
