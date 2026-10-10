@@ -52,16 +52,22 @@ PHP・MySQLを用いたWebアプリケーション開発を学ぶことを目的
 ## 画面
 
 ### ホーム画面
+<img width="640" height="400" alt="スクリーンショット 2026-10-10 180534" src="https://github.com/user-attachments/assets/9ac7db9b-6cb1-482d-8eac-d08c0aabd9d1" />
+<img width="640" height="398" alt="スクリーンショット 2026-10-10 180550" src="https://github.com/user-attachments/assets/fdc30bcf-d05d-40f2-99b4-4eddfff97a0a" />
 
 - 今日の学習時間を表示
 - 科目ごとの学習時間を円グラフで表示
 
 ### 学習履歴
+<img width="640" height="400" alt="スクリーンショット 2026-10-10 180759" src="https://github.com/user-attachments/assets/c55ec25a-7502-4162-a371-b55ab22c3cf9" />
+
 
 - 学習履歴を一覧表示
 - 編集・削除機能
 
 ### 学習記録
+<img width="640" height="399" alt="スクリーンショット 2026-10-10 180614" src="https://github.com/user-attachments/assets/11e403df-cc57-448d-8d66-c7e9fe9c034b" />
+
 
 - 科目
 - 学習時間
