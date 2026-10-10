@@ -53,9 +53,9 @@ PHP・MySQLを用いたWebアプリケーション開発を学ぶことを目的
 
 ### ホーム画面
 
-![ホーム画像](/images/home-image.png)
 ![ホーム画像](/images/home-image1.png)
 ![ホーム画像](/images/home-image2.png)
+![ホーム画像](/images/home-image.png)
 
 - 今日の学習時間を表示
 - 科目ごとの学習時間を円グラフで表示
