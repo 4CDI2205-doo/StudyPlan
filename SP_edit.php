@@ -1,7 +1,7 @@
 <?php
     session_start();
-    include "SP_table_create.php";
-    include "function.php";
+    include "includes/SP_table_pdo.php";
+    include "includes/function.php";
 
     requireLogin();
 
@@ -60,7 +60,7 @@
 
 ?>
 
-<?php include "header.php" ?>
+<?php include "includes/header.php" ?>
 <h2>学習履歴の編集</h2>
 <?php if ($error_message !== ""): ?>
     <p><?= h($error_message) ?></p>
@@ -88,4 +88,4 @@
         <button type="submit" name="update_submit" class="btn btn-history">変更する</button>
     </form>
 <?php endif; ?>
-<?php include "footer.php" ?>
+<?php include "includes/footer.php" ?>

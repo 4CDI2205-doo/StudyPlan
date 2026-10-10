@@ -1,7 +1,7 @@
 <?php
     session_start();
-    include "SP_table_pdo.php";
-    include "function.php";
+    include "includes/SP_table_pdo.php";
+    include "includes/function.php";
     requireLogin();
 
     $user_name = $_SESSION["user_name"];

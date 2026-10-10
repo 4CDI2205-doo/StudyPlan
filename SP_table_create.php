@@ -1,5 +1,5 @@
 <?php
-    require_once "SP_table_pdo.php";
+    require_once "includes/SP_table_pdo.php";
 
     $sql = "CREATE TABLE IF NOT EXISTS SP_study_logs(
         id INT AUTO_INCREMENT PRIMARY KEY,

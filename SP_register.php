@@ -1,10 +1,11 @@
 <?php
-    include "SP_table_pdo.php";
+    include "includes/SP_table_pdo.php";
 
     if (isset($_POST["name"]) && !empty($_POST["name"]) && isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["password"]) && !empty($_POST["password"])){
         $name = $_POST["name"];
         $email = $_POST["email"];
         $password = $_POST["password"];
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $date = date("Y/m/d h:i:s");
 
         $sql = "SELECT * FROM SP_users WHERE email = :email";
@@ -21,7 +22,7 @@
 
             $stmt->bindParam(":name",$name, PDO::PARAM_STR);
             $stmt->bindParam(":email",$email, PDO::PARAM_STR);
-            $stmt->bindParam(":password",$password, PDO::PARAM_STR);
+            $stmt->bindParam(":password",$hashed_password, PDO::PARAM_STR);
             $stmt->bindParam(":created_at",$date, PDO::PARAM_STR);
 
             $result = $stmt->execute();
@@ -34,7 +35,7 @@
         }
     }
 ?>
-<?php include "header-normal.php" ?>
+<?php include "includes/header-normal.php" ?>
 <h2>初期登録</h2>
 <form action="" method="post" class="register-form">
     <div class="form-group">
@@ -54,4 +55,4 @@
 <hr>
 <p><a href="SP_login.php">ログイン画面に戻る</a></p>
 
-<?php include "footer.php";?>
+<?php include "includes/footer.php";?>

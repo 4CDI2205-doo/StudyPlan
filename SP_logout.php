@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include "function.php";
+    include "includes/function.php";
     requireLogin();
 
     $_SESSION = [];
