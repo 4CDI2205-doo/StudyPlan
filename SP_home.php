@@ -7,9 +7,11 @@
     include "includes/function.php";
     requireLogin();
     
-    //今日の勉強時間関連
     $user_id = $_SESSION["user_id"];
     $user_name = $_SESSION["user_name"];
+    $csrf_token = generate_csrf_token();
+
+    //今日の勉強時間関連
     //今日の日付
     $today = date("Y-m-d");
     $month = date("Y-m");
@@ -68,8 +70,8 @@
 ?>
 
 <?php
-    //ホームでの新しい5件のみ表示するためのセレクト文
-    $sql_recent = "SELECT * FROM SP_study_logs WHERE user_id = :user_id ORDER BY created_at DESC LIMIT 5";
+    //ホームでの新しい3件のみ表示するためのセレクト文
+    $sql_recent = "SELECT * FROM SP_study_logs WHERE user_id = :user_id ORDER BY created_at DESC LIMIT 3";
     
     $stmt_recent = $pdo->prepare($sql_recent);
     

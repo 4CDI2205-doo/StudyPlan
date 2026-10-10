@@ -7,10 +7,49 @@
 
     $user_name = $_SESSION["user_name"];
     $user_id = $_SESSION["user_id"];
+    $csrf_token = generate_csrf_token();
 
     $edit_data = null;
     $error_message = "";
-    
+
+    if ($_SERVER["REQUEST_METHOD"] === "POST"){
+        if (!isset($_POST["csrf_token"]) || !verify_csrf_token($_POST["csrf_token"])){
+            die("不正なリクエストです");    
+        }
+        
+        if (isset($_POST["update_id"]) && !empty($_POST["update_id"]) && isset($_POST["update_subject"]) && !empty($_POST["update_subject"]) && isset($_POST["update_time"]) && !empty($_POST["update_time"]) && isset($_POST["update_progress"]) && !empty($_POST["update_progress"])){
+            $update_id = $_POST["update_id"];    
+            $subject = $_POST["update_subject"];
+            $time = $_POST["update_time"];
+            $progress = $_POST["update_progress"];
+            $memo = $_POST["update_memo"] ?? "";
+            $created_at = date("Y/m/d H:i:s");
+            
+            $sql = "UPDATE SP_study_logs SET SP_subject = :SP_subject, study_time = :study_time, progress = :progress, memo = :memo, created_at = :created_at WHERE id = :id AND user_id = :user_id";
+            
+            $stmt = $pdo->prepare($sql);
+            
+            $stmt->bindParam(":id",$update_id,PDO::PARAM_INT);
+            $stmt->bindParam(":user_id",$user_id,PDO::PARAM_INT);
+            $stmt->bindParam(":SP_subject",$subject, PDO::PARAM_STR);
+            $stmt->bindParam(":study_time",$time,PDO::PARAM_STR);
+            $stmt->bindParam(":progress",$progress,PDO::PARAM_STR);
+            $stmt->bindParam(":memo",$memo,PDO::PARAM_STR);
+            $stmt->bindParam(":created_at",$created_at,PDO::PARAM_STR);
+            $stmt->execute();
+            
+            if ($stmt->rowCount() > 0){
+                header("Location: SP_history.php");
+                exit();
+                }else{
+                    echo "データがありません";
+                }
+        }
+    }
+
+                    
+                    
+
     if (isset($_GET["id"]) && !empty($_GET["id"])){
         $edit_id = (int)$_GET["id"];
 
@@ -28,36 +67,6 @@
             $error_message = "編集する学習記録が見つかりません";
         }
     }
-
-    if (isset($_POST["update_id"]) && !empty($_POST["update_id"]) && isset($_POST["update_subject"]) && !empty($_POST["update_subject"]) && isset($_POST["update_time"]) && !empty($_POST["update_time"]) && isset($_POST["update_progress"]) && !empty($_POST["update_progress"])){
-        $update_id = $_POST["update_id"];    
-        $subject = $_POST["update_subject"];
-        $time = $_POST["update_time"];
-        $progress = $_POST["update_progress"];
-        $memo = $_POST["update_memo"] ?? "";
-        $created_at = date("Y/m/d H:i:s");
-
-        $sql = "UPDATE SP_study_logs SET SP_subject = :SP_subject, study_time = :study_time, progress = :progress, memo = :memo, created_at = :created_at WHERE id = :id AND user_id = :user_id";
-        
-        $stmt = $pdo->prepare($sql);
-        
-        $stmt->bindParam(":id",$update_id,PDO::PARAM_INT);
-        $stmt->bindParam(":user_id",$user_id,PDO::PARAM_INT);
-        $stmt->bindParam(":SP_subject",$subject, PDO::PARAM_STR);
-        $stmt->bindParam(":study_time",$time,PDO::PARAM_STR);
-        $stmt->bindParam(":progress",$progress,PDO::PARAM_STR);
-        $stmt->bindParam(":memo",$memo,PDO::PARAM_STR);
-        $stmt->bindParam(":created_at",$created_at,PDO::PARAM_STR);
-        $stmt->execute();
-
-        if ($stmt->rowCount() > 0){
-            header("Location: SP_history.php");
-            exit();
-        }else{
-            echo "データがありません";
-        }
-    }
-
 ?>
 
 <?php include "includes/header.php" ?>
@@ -68,6 +77,7 @@
 
 <?php if ($edit_data): ?>
     <form action="" method="post" class="edit-form">
+        <input type="hidden" name="csrf_token" value="<?= h($csrf_token) ?>">
         <input type="hidden" name="update_id" value="<?= h($edit_data["id"]) ?>">
         <div class="form-group">
             <label for="updatesubject">科目名：</label>
